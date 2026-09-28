@@ -57,6 +57,12 @@ public class ChartEditor : UnitySingleton<ChartEditor>
     public SongAudioManager currentSongAudio { get; private set; }
     string currentFileName = string.Empty;
 
+    /// <summary>
+    /// Full path of the chart file currently open, or an empty string when the song has never
+    /// been saved. Used to key per chart data that should not live inside the chart file itself.
+    /// </summary>
+    public string lastLoadedFilePath { get { return lastLoadedFile; } }
+
     [HideInInspector]
     public MovementController movement;
     [HideInInspector]

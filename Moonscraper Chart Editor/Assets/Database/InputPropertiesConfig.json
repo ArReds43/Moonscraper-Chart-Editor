@@ -1110,6 +1110,17 @@
                 "category": 0,
                 "allowSameFrameMultiInput": false
             }
+        },
+        {
+            "mSChartEditorInputAction": "ToggleVideoGuide",
+            "properties": {
+                "displayName": "Toggle Video Guide",
+                "rebindable": true,
+                "hiddenInLists": false,
+                "anyDirectionAxis": false,
+                "category": 0,
+                "allowSameFrameMultiInput": false
+            }
         }
     ]
 }

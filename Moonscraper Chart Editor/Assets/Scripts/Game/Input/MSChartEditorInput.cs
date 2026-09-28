@@ -111,6 +111,8 @@ public enum MSChartEditorInputActions
     ToolNoteLane6,
     ToolNoteLaneOpen,
 
+    ToggleVideoGuide,
+
     CloseMenu,
 
     // Guitar Actions
