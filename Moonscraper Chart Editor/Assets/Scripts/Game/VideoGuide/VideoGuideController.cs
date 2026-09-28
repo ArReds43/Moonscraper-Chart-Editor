@@ -128,6 +128,22 @@ namespace MoonscraperChartEditor.VideoGuide
             }
         }
 
+        /// <summary>Whether the status/debug line over the video is shown. Explicit-forced on even
+        /// when off, so an error message always surfaces.</summary>
+        public bool ShowDebugInfo
+        {
+            get { return VideoGuideStore.Preferences.showDebugInfo; }
+            set
+            {
+                VideoGuideStore.Preferences.showDebugInfo = value;
+                VideoGuideStore.Save();
+
+                // Refresh the hud the frame the preference changes so the line goes away or comes.
+                // back as soon as the user releases the toggle.
+                UpdateHud();
+            }
+        }
+
         /// <summary>Position the video is showing right now, in seconds.</summary>
         public float CurrentVideoTime
         {
@@ -847,7 +863,14 @@ namespace MoonscraperChartEditor.VideoGuide
 
             if (_state == VideoGuideState.Error)
             {
+                // Errors always surface even with the debug line off.
                 SetHud("VIDEO GUIDE: " + _errorMessage, VideoGuideUI.kWarning);
+                return;
+            }
+
+            if (!VideoGuideStore.Preferences.showDebugInfo)
+            {
+                SetHud(string.Empty, VideoGuideUI.kLabel);
                 return;
             }
 

@@ -53,6 +53,7 @@ namespace MoonscraperChartEditor.VideoGuide
         /// <summary>Right-edge resize strip, so the width clamp can stand down while it is dragged.</summary>
         VideoGuideResizeHandle _resizeHandle;
         Toggle _visibleToggle;
+        Toggle _debugToggle;
         Slider _widthSlider;
         Slider _posXSlider;
         Slider _posYSlider;
@@ -288,6 +289,12 @@ namespace MoonscraperChartEditor.VideoGuide
             _visibleToggle = VideoGuideUI.CreateToggle("ShowOverlay", row, "Show video over the highway", kFontSize, true);
             VideoGuideUI.PlaceFraction((RectTransform)_visibleToggle.transform, 0.0f, 1.0f, 0.0f);
             _visibleToggle.onValueChanged.AddListener(OnVisibleToggled);
+
+            RectTransform debugRow = VideoGuideUI.CreateRow("DebugRow", parent, 26.0f);
+
+            _debugToggle = VideoGuideUI.CreateToggle("ShowDebug", debugRow, "Show debug info over the video", kFontSize, true);
+            VideoGuideUI.PlaceFraction((RectTransform)_debugToggle.transform, 0.0f, 1.0f, 0.0f);
+            _debugToggle.onValueChanged.AddListener(OnDebugToggled);
         }
 
         void BuildSliderRows(Transform parent)
@@ -393,6 +400,15 @@ namespace MoonscraperChartEditor.VideoGuide
             VideoGuideStore.Save();
         }
 
+        void OnDebugToggled(bool value)
+        {
+            if (_suppressCallbacks)
+                return;
+
+            // The controller refreshes the line immediately and persists the preference itself.
+            _controller.ShowDebugInfo = value;
+        }
+
         void OnLayoutSliderChanged()
         {
             if (!_built || _suppressCallbacks)
@@ -444,6 +460,7 @@ namespace MoonscraperChartEditor.VideoGuide
                 _videoOffsetField.text = _controller.VideoOffset.ToString("0.###");
 
                 _visibleToggle.isOn = prefs.overlayVisible;
+                _debugToggle.isOn = prefs.showDebugInfo;
                 _widthSlider.value = prefs.overlayWidth;
                 _posXSlider.value = prefs.overlayPosX;
                 _posYSlider.value = prefs.overlayPosY;

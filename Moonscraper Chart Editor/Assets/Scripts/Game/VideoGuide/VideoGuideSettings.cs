@@ -50,6 +50,7 @@ namespace MoonscraperChartEditor.VideoGuide
     public class VideoGuidePreferences
     {
         public bool overlayVisible = true;
+        public bool showDebugInfo = true;
         public float overlayWidth = 0.55f;
         public float overlayPosX = 0.0f;
         public float overlayPosY = 0.0f;

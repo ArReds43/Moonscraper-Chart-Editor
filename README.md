@@ -31,6 +31,36 @@ A [`PKGBUILD` file for Arch Linux](aur/PKGBUILD) is included in the repository.
 
 Other distribution packagers can use the `PKGBUILD` file for reference.
 
+## Video Guide
+
+The editor can overlay a silent video (e.g. a drum cam) on the playfield, kept in sync with the
+song playback, to use as a positional reference while charting.
+
+### How to use
+1. Open the chart you want to attach a video to. The pairing is per-song, so load the chart
+   *before* picking a video.
+2. Focus the Game view and press the **Toggle Video Guide** key (`F8` by default, see below).
+3. In the panel that appears, use **Load video...** to pick a video file.
+4. Press Play on the chart. The video follows the cursor and is hidden whenever the song has not
+   reached the video's start point yet.
+
+### Controls
+- **Video offset (s)** field and the `-0.1` / `-0.01` / `+0.01` / `+0.1` buttons nudge the video
+  relative to the song, with the same precision field in **Sound offset (s)** available on top of it.
+- **Show video over the highway** toggles the overlay without closing the panel.
+- The video can be positioned with the mouse: drag it to move it, and use the green strip on its
+  right edge to resize it. It is kept inside the screen at all times.
+- The **Clear** button detaches the video, and **Close** hides the panel.
+- A status line shows the playing file and the current song/video times plus live drift in ms.
+
+### Configuration
+- Offsets, the per-song video path and the overlay/panel layout are saved to `videoguide.json` in
+  the per-user settings folder, keyed by chart so each song keeps its own video and alignment.
+- The **Toggle Video Guide** key is a normal editor input (see `DefaultControls.json`) and can be
+  remapped through the in-editor key binding screen; the runtime reads the user's saved controls.
+- Video files whose path contains characters the Windows video backend cannot open (spaces, commas,
+  etc.) are played from a temporary sanitised copy automatically.
+
 ## License
 - See [attribution.txt](https://github.com/FireFox2000000/Moonscraper-Chart-Editor/blob/master/Moonscraper%20Chart%20Editor/Assets/Documentation/attribution.txt) for third party libraries and resources included in this repository.
 - See [LICENSE](LICENSE).
